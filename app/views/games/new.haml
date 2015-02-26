@@ -6,13 +6,15 @@
       = image_tag char.image, id: char.id, class: 'player-images faded'
 
   = f.hidden_field :character_ids, id: 'character-ids'
-  = f.submit 'Create Game', class: 'button alert'
+  = f.submit 'Create Game', type: :image, src: asset_path("start_game.png"), style: 'width: 200px; margin-top: 420px; margin-left: 1200px;'
 
 = content_for :js do
   :javascript
 
     $(document).ready(function() {
+      var swordSound = new Audio("#{asset_path('sword.mp3')}")
       $('.player-images').on('click', function() {
+        swordSound.play();
         var existing = $("#character-ids").val()
         $("#character-ids").val( existing + ',' + $(this).attr('id') )
         $(this).toggleClass('faded')
