@@ -1,0 +1,29 @@
+- @game.characters.each do |character|
+  .character-card
+    = image_tag character.image
+.play-button
+  = image_tag 'play.png'
+  = audio_tag @audio
+.pause-button
+  = image_tag 'pause.png'
+
+= content_for :js do
+  :javascript
+
+    $(document).ready(function() {
+      var music = new Audio("#{asset_path('king_arthur.mp3')}")
+      music.volume = 0.2;
+      var audio = new Audio("#{asset_path(@audio)}");
+      $('.play-button').click(function(){ 
+        music.play(); 
+        audio.play();
+        $('.play-button').hide();
+        $('.pause-button').show();
+      });
+      $('.pause-button').click(function() {
+        $('.pause-button').hide();
+        $('.play-button').show();
+        audio.pause();
+      })
+    });
+
