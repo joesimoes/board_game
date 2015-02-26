@@ -13,8 +13,16 @@
 
     $(document).ready(function() {
       var swordSound = new Audio("#{asset_path('sword.mp3')}")
+      var sheatheSound = new Audio("#{asset_path('sheathe.mp3')}")
+      $('.character-card').on('click', function() {
+        $(this).toggleClass('playing');
+        if ($(this).hasClass('playing')) {
+          swordSound.play();
+        } else {
+          sheatheSound.play();
+        }
+      });
       $('.player-images').on('click', function() {
-        swordSound.play();
         var existing = $("#character-ids").val()
         $("#character-ids").val( existing + ',' + $(this).attr('id') )
         $(this).toggleClass('faded')
