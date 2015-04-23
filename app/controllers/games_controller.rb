@@ -15,6 +15,10 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @characters = @game.characters.collect(&:name)
+    select_audio(@characters)
+  end
+
+  def select_audio(characters)
     if @characters.empty?
       @audio = 'generic.mp3'
     elsif @characters.count == 6
